@@ -7,9 +7,9 @@
     "types": []
   },
   "include": [
-    "trivia/src/**/*.ts"
+    "src/**/*.ts"
   ],
   "exclude": [
-    "trivia/src/**/*.spec.ts"
+    "src/**/*.spec.ts"
   ]
 }
