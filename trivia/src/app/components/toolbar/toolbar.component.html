@@ -1,0 +1,28 @@
+<div class="toolbar">
+  <app-icon-button label="lifetime stats" link="/stats" [circle]="true">
+    <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M5 20V11M12 20V4M19 20v-6" fill="none" stroke="currentColor"
+            stroke-width="2.4" stroke-linecap="round" />
+    </svg>
+  </app-icon-button>
+
+  <!-- moon in light mode, sun in dark mode; the label says what the button will do -->
+  <app-icon-button
+    [label]="theme.isDark() ? 'switch to light mode' : 'switch to dark mode'"
+    [circle]="true"
+    (click)="theme.toggle()"
+  >
+    @if (theme.isDark()) {
+      <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="2.2" />
+        <path d="M12 2.5v2.3M12 19.2v2.3M2.5 12h2.3M19.2 12h2.3M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M18.7 5.3l-1.6 1.6M6.9 17.1l-1.6 1.6"
+              fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" />
+      </svg>
+    } @else {
+      <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z" fill="none"
+              stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" />
+      </svg>
+    }
+  </app-icon-button>
+</div>

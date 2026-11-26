@@ -8,6 +8,11 @@
   padding: 16px;
 }
 
+/* <router-outlet> itself is an empty element and would count as a grid item,
+   pushing the page into a second row below the center. routed pages are inserted
+   after it (not inside it), so hiding the outlet is safe. */
+router-outlet { display: none; }
+
 @media (max-width: 560px) {
   .shell { padding-top: 72px; }   /* leave room for the toolbar icons */
 }

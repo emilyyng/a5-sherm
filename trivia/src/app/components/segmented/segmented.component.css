@@ -38,7 +38,7 @@
 }
 
 .seg:hover input:not(:checked) + span {
-  background: rgba(35, 114, 163, 0.12);
+  background: var(--hover);
 }
 
 .seg input:focus-visible + span {

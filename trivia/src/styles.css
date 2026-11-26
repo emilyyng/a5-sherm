@@ -1,10 +1,11 @@
-/* styles.css - global tokens, fonts, page background */
+/* styles.css - global tokens, fonts, page background, light + dark themes */
 @font-face {
   font-family: 'bpchildfatty';
   src: url('./app/assets/BPchildfatty.ttf') format('truetype');
   font-display: swap;
 }
 
+/* ---------- light theme (default) ---------- */
 :root {
   --blue: #2372A3;
   --sky: #D3F1FB;
@@ -12,8 +13,29 @@
   --gray: #454545;
   --red: #C86868;
   --green: #62A770;
+
+  --hover: rgba(35, 114, 163, 0.12);   /* unselected pill/chip hover */
+  --sky-hover: #BFE6F5;                /* answer option hover */
+
   --font-display: 'bpchildfatty', 'Comic Sans MS', cursive;
   --font-body: 'Instrument Sans', system-ui, sans-serif;
+
+  color-scheme: light;
+}
+
+/* ---------- dark theme: the light colors flipped ----------
+   cream <-> dark gray, dark blue <-> light blue. red and green stay the same.
+   set by ThemeService via <html data-theme="dark"> */
+:root[data-theme='dark'] {
+  --blue: #D3F1FB;
+  --sky: #2372A3;
+  --cream: #454545;   /* the palette's dark gray becomes the card color */
+  --gray: #FEFDF9;    /* the palette's cream becomes the text color */
+
+  --hover: rgba(211, 241, 251, 0.16);
+  --sky-hover: #2C80B3;
+
+  color-scheme: dark;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -23,6 +45,10 @@ body {
   font-family: var(--font-body);
   color: var(--gray);
   background: #8bcdf5 url('./app/assets/sky.jpg') center / cover fixed no-repeat;
+}
+
+:root[data-theme='dark'] body {
+  background: #0e1a33 url('./app/assets/night.jpg') center / cover fixed no-repeat;
 }
 
 /* form controls don't inherit fonts by default */
