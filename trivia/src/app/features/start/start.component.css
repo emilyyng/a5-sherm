@@ -1,0 +1,151 @@
+/* features/start/start.component.css */
+/* page-specific styling only; reusable components (card, segmented control, toolbar, credit) style themselves */
+:host {
+  display: block;
+  width: 100%;
+  max-width: 760px;
+}
+
+.logo {
+  font-family: var(--font-display);
+  font-weight: normal;
+  font-size: clamp(3rem, 10vw, 5rem);
+  color: var(--blue);
+  margin: 0;
+}
+
+.tagline {
+  color: var(--gray);
+  font-size: 1.25rem;
+  margin: 1px 0 clamp(20px, 5vh, 40px);
+}
+
+/* ---------- preferences block: labels + controls centered as one unit ---------- */
+.prefs {
+  max-width: 450px;
+  margin: 0 auto;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 78px minmax(0, 1fr);   /* label | control */
+  align-items: center;
+  column-gap: 12px;
+  margin: 0 0 12px;
+}
+
+.row-label {
+  text-align: right;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--blue);
+}
+
+/* ---------- category chips inside the light-blue box: 3 on top, 2 below ---------- */
+.chips {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr); /* each chip spans 2 -> 3 per row */
+  gap: 4px;
+  padding: 10px;
+  border-radius: 18px;
+  background: var(--sky);
+}
+
+.chip {
+  grid-column: span 2;
+  position: relative;
+  cursor: pointer;
+}
+/* center the second row of two */
+.chip:nth-child(4) { grid-column: 2 / span 2; }
+.chip:nth-child(5) { grid-column: 4 / span 2; }
+
+/* hide the real checkbox but keep it focusable */
+.chip input {
+  position: absolute;
+  opacity: 0;
+  inset: 0;
+  margin: 0;
+  cursor: pointer;
+}
+
+.chip span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 6px 4px;
+  border-radius: 999px;
+  color: var(--blue);
+  font-size: 1rem;
+  line-height: 1.15;
+  text-align: center;
+  text-transform: lowercase;
+  transition: background 0.15s, color 0.15s;
+}
+
+.chip input:checked + span {
+  background: var(--blue);
+  color: var(--cream);
+}
+
+.chip:hover input:not(:checked) + span {
+  background: rgba(35, 114, 163, 0.12);
+}
+
+.chip input:focus-visible + span,
+.btn-start:focus-visible {
+  outline: 3px solid var(--gray);
+  outline-offset: 2px;
+}
+
+/* ---------- start button ---------- */
+.btn-start {
+  display: block;
+  margin: clamp(18px, 4vh, 32px) auto 0;
+  background: var(--blue);
+  color: var(--cream);
+  border: 0;
+  border-radius: 10px;
+  padding: 16px 56px;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  cursor: pointer;
+  box-shadow: 0 3px 0 rgba(0, 0, 0, 0.18);
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+.btn-start:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 0 rgba(0, 0, 0, 0.18);
+}
+.btn-start:active:not(:disabled) {
+  transform: translateY(1px);
+  box-shadow: none;
+}
+.btn-start:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.error {
+  color: var(--red);
+  margin: 4px 0 0;
+  font-weight: 600;
+}
+
+/* ---------- small screens: labels move above the controls ---------- */
+@media (max-width: 560px) {
+  .prefs { max-width: none; }
+  .row { grid-template-columns: 1fr; row-gap: 6px; }
+  .row-label { text-align: left; margin-left: 12px; }
+
+  .chips { grid-template-columns: repeat(2, 1fr); }
+  .chip,
+  .chip:nth-child(4),
+  .chip:nth-child(5) { grid-column: span 1; }
+  .chip:nth-child(5) { grid-column: 1 / -1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+}

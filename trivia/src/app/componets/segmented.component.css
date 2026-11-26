@@ -1,0 +1,51 @@
+:host { display: block; min-width: 0; }
+
+.segmented {
+  display: flex;
+  background: var(--sky);
+  border-radius: 999px;
+  padding: 8px;
+  gap: 4px;
+}
+
+.seg {
+  flex: 1;
+  position: relative;
+  cursor: pointer;
+}
+
+/* hide the real radio but keep it focusable */
+.seg input {
+  position: absolute;
+  opacity: 0;
+  inset: 0;
+  margin: 0;
+  cursor: pointer;
+}
+
+.seg span {
+  display: block;
+  padding: 6px 12px;
+  border-radius: 999px;
+  color: var(--blue);
+  font-size: 1rem;
+  transition: background 0.15s, color 0.15s;
+}
+
+.seg input:checked + span {
+  background: var(--blue);
+  color: var(--cream);
+}
+
+.seg:hover input:not(:checked) + span {
+  background: rgba(35, 114, 163, 0.12);
+}
+
+.seg input:focus-visible + span {
+  outline: 3px solid var(--gray);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .seg span { transition: none; }
+}

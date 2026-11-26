@@ -1,2 +1,53 @@
 <!-- features/start/start.component.html -->
-<!-- start screen template: difficulty, category, and timer controls plus the Start button -->
+<!-- start screen: logo, time / difficulty / category preferences, start button -->
+<app-card>
+  <h1 class="logo">whileuwait</h1>
+  <p class="tagline">something to pass the time</p>
+
+  <form [formGroup]="form" (ngSubmit)="start()">
+
+    <!-- preferences block: labels + controls centered as one unit -->
+    <div class="prefs">
+
+      <div class="row">
+        <span class="row-label" id="time-label">time</span>
+        <app-segmented formControlName="timed" labelledBy="time-label" [options]="timerOptions" />
+      </div>
+
+      <div class="row">
+        <span class="row-label" id="diff-label">difficulty</span>
+        <app-segmented formControlName="difficulty" labelledBy="diff-label" [options]="difficultyOptions" />
+      </div>
+
+      <div class="row">
+        <span class="row-label" id="cat-label">category</span>
+        <div class="chips" role="group" aria-labelledby="cat-label">
+          @for (c of categories; track c.slug) {
+            <label class="chip">
+              <input
+                type="checkbox"
+                [checked]="isSelected(c.slug)"
+                (change)="toggleCategory(c.slug)"
+              />
+              <span>{{ c.label }}</span>
+            </label>
+          }
+        </div>
+      </div>
+
+    </div>
+
+    @if (form.controls.categories.invalid && form.controls.categories.touched) {
+      <p class="error" role="alert">choose at least one category</p>
+    }
+    @if (error()) {
+      <p class="error" role="alert">{{ error() }}</p>
+    }
+
+    <button type="submit" class="btn-start" [disabled]="form.invalid || loading()">
+      {{ loading() ? 'loading…' : 'start game' }}
+    </button>
+  </form>
+
+  <app-attribution />
+</app-card>

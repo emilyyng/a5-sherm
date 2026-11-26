@@ -1,0 +1,21 @@
+:host {
+  display: block;
+  margin-top: clamp(14px, 3vh, 22px);
+}
+
+.credit {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--gray);
+  opacity: 0.8;
+}
+
+a {
+  color: var(--blue);
+  text-underline-offset: 3px;
+}
+
+a:focus-visible {
+  outline: 3px solid var(--gray);
+  outline-offset: 2px;
+}
