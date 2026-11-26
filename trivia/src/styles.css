@@ -1,2 +1,29 @@
-/* styles.css */
-/* global stylesheet: theme colors, buttons, cards, and layout for all screens */
+/* styles.css - global tokens, fonts, page background */
+@font-face {
+  font-family: 'bpchildfatty';
+  src: url('./app/assets/BPchildfatty.ttf') format('truetype');
+  font-display: swap;
+}
+
+:root {
+  --blue: #2372A3;
+  --sky: #D3F1FB;
+  --cream: #FEFDF9;
+  --gray: #454545;
+  --red: #C86868;
+  --green: #62A770;
+  --font-display: 'bpchildfatty', 'Comic Sans MS', cursive;
+  --font-body: 'Instrument Sans', system-ui, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  color: var(--gray);
+  background: #8bcdf5 url('./app/assets/sky.jpg') center / cover fixed no-repeat;
+}
+
+/* form controls don't inherit fonts by default */
+button, input, select { font-family: inherit; }
