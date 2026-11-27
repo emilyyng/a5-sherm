@@ -5,12 +5,13 @@ import { Router } from '@angular/router';
 import { GameStateService } from '../../core/game-state.service';
 import { CardComponent } from '../../components/card/card.component';
 import { ButtonComponent } from '../../components/button/button.component';
+import { ScoreRowComponent, ScoreState } from '../../components/score-row/score-row.component';
 import { CATEGORIES } from '../../core/models';
 
 @Component({
   selector: 'app-results',
   standalone: true,
-  imports: [CardComponent, ButtonComponent],
+  imports: [CardComponent, ButtonComponent, ScoreRowComponent],
   templateUrl: './results.component.html',
   styleUrl: './results.component.css',
 })
@@ -21,12 +22,18 @@ export class ResultsComponent {
   readonly loading = signal(false);
   readonly error = signal<string | null>(null);
 
+  // one sparkle per question, in order: green = right, red = wrong or no answer
+  readonly scores = computed<ScoreState[]>(() =>
+    this.game.answers().map(right => (right ? 'correct' : 'wrong')),
+  );
+  readonly sparkLabel = computed(() => `${this.game.score()} of ${this.game.total()} correct`);
+
   readonly message = computed(() => {
     const ratio = this.game.score() / (this.game.total() || 1);
     if (ratio === 1) return 'Perfect score!';
     if (ratio >= 0.6) return 'Nice work!';
     if (ratio >= 0.4) return 'Not bad. Try again?';
-    return 'Better luck next time';
+    return 'Better luck next time.';
   });
 
   // "all categories" if every category was picked, otherwise the picked category names

@@ -1,0 +1,167 @@
+/* features/quiz/quiz.component.css */
+/* page-specific styling only; card, stars, icon button and credit style themselves */
+:host {
+  display: block;
+  width: 100%;
+  max-width: 1280px;
+}
+
+app-score-row { --spark-size: 30px; --spark-gap: 4px; }
+
+/* ---------- header: stars left, timer right ---------- */
+.quiz-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  min-height: 44px;
+}
+
+.timer {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.time {
+  min-width: 2ch;
+  text-align: right;
+  font-size: 2rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--blue);
+}
+.time.low { color: var(--red); }
+
+/* ---------- moving timer bar ---------- */
+.timer-bar {
+  max-width: 900px;            /* same width as the question and answers */
+  height: 12px;
+  margin: clamp(8px, 2vh, 16px) auto 0;
+  border-radius: 999px;
+  background: var(--sky);
+  overflow: hidden;
+  margin-top: 30px;
+}
+
+.timer-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: var(--blue);
+  transition: width 0.1s linear, background-color 0.3s;   /* matches the 100ms countdown ticks */
+}
+.timer-fill.low { background: var(--red); }
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.progress {
+  margin: clamp(4px, 1.5vh, 14px) 0 0;
+  font-size: 1rem;
+  color: var(--gray);
+}
+
+/* ---------- question ---------- */
+.question {
+  display: grid;
+  place-items: center;
+  max-width: 900px;
+  min-height: 2.7em;          /* reserve two lines so the layout doesn't jump between questions */
+  margin: clamp(8px, 2vh, 16px) auto clamp(18px, 4vh, 36px);
+  font-family: var(--font-display);
+  font-weight: normal;
+  font-size: clamp(1.5rem, 3.2vw, 2.3rem);
+  line-height: 1.35;
+  color: var(--blue);
+}
+
+/* ---------- answer options: 2 x 2 pills ---------- */
+.options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: clamp(64px, 11vh, 120px);
+  padding: 12px 28px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--sky);
+  color: var(--blue);
+  font-size: 1.1rem;
+  line-height: 1.25;
+  cursor: pointer;
+  transition: background 0.15s, opacity 0.15s, transform 0.1s;
+}
+
+.option:hover:not(:disabled) { background: var(--sky-hover); }
+.option:active:not(:disabled) { transform: scale(0.98); }
+.option:disabled { cursor: default; }
+
+.option:focus-visible {
+  outline: 3px solid var(--gray);
+  outline-offset: 3px;
+}
+
+/* after answering: green = right, red = your wrong pick, the rest fade */
+/* text color is the card color, so it's cream on the dark light-mode fills and dark gray on the pale dark-mode fills */
+.option.correct { background: var(--green); color: var(--cream); }
+.option.wrong   { background: var(--red);   color: var(--cream); }
+.option.dimmed  { opacity: 0.45; }
+
+.mark {
+  font-weight: 700;
+  font-size: 1.3rem;
+}
+
+/* ---------- paused ---------- */
+.play-area-wrap { position: relative; }
+
+.play-area.paused {
+  filter: blur(12px);
+  opacity: 0.6;
+  user-select: none;
+}
+
+.paused-note {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 2rem;
+  color: var(--blue);
+}
+
+.feedback {
+  min-height: 1.5em;          /* reserve a line so the card doesn't resize when feedback appears */
+  margin: 16px 0 0;
+  font-size: 1rem;
+  color: var(--gray);
+}
+
+/* ---------- small screens ---------- */
+@media (max-width: 640px) {
+  app-score-row { --spark-size: 22px; }
+  .time { font-size: 1.6rem; }
+  .options { grid-template-columns: 1fr; gap: 10px; }
+  .option { min-height: 56px; padding: 10px 20px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .option { transition: none; }
+}

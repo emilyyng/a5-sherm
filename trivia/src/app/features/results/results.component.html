@@ -7,6 +7,14 @@
     {{ game.score() }} <span>/ {{ game.total() }}</span>
   </p>
 
+  <app-score-row
+    class="sparks"
+    mode="color"
+    [animate]="true"
+    [results]="scores()"
+    [label]="sparkLabel()"
+  />
+
   @if (game.settings(); as s) {
     <p class="subtitle">
       {{ s.difficulty }} · {{ categoryText() }} ·

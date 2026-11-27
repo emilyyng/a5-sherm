@@ -1,2 +1,85 @@
 <!-- features/quiz/quiz.component.html -->
-<!-- quiz screen template: progress, countdown, question, answer options, and correct/wrong feedback -->
+<!-- quiz screen: stars + timer/pause, progress, question, answer options, feedback -->
+@if (game.currentQuestion(); as q) {
+  <app-card size="wide">
+
+    <header class="quiz-header">
+      <app-score-row mode="color" [results]="scores()" />
+
+      @if (game.settings()?.timed) {
+        <div class="timer">
+          <app-icon-button
+            [label]="paused() ? 'resume timer' : 'pause timer'"
+            [disabled]="revealed()"
+            (click)="togglePause()"
+          >
+            @if (paused()) {
+              <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M7 4.5v15l12-7.5z" fill="currentColor" stroke="currentColor"
+                      stroke-width="2" stroke-linejoin="round" />
+              </svg>
+            } @else {
+              <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
+                <rect x="5" y="4" width="5" height="16" rx="1.5" fill="currentColor" />
+                <rect x="14" y="4" width="5" height="16" rx="1.5" fill="currentColor" />
+              </svg>
+            }
+          </app-icon-button>
+          <span class="time" [class.low]="timeLeft() <= 5" role="timer">
+            {{ timeLeft() }}<span class="sr-only"> seconds left</span>
+          </span>
+        </div>
+      }
+    </header>
+
+    <!-- the moving timer bar: shrinks as time runs out, turns red in the last 5 seconds.
+         decorative; the number above is what screen readers get -->
+    @if (game.settings()?.timed) {
+      <div class="timer-bar" aria-hidden="true">
+        <div class="timer-fill" [style.width.%]="timePercent()" [class.low]="timeLeft() <= 5"></div>
+      </div>
+    }
+
+    <p class="progress">{{ game.currentIndex() + 1 }} of {{ game.total() }}</p>
+
+    <!-- while paused the question and answers are blurred and locked so you can't peek or stall -->
+    <div class="play-area-wrap">
+      <div class="play-area" [class.paused]="paused()" [attr.inert]="paused() ? '' : null">
+        <h2 class="question">{{ q.text }}</h2>
+
+        <div class="options">
+          @for (option of q.options; track option) {
+            <button
+              type="button"
+              [class]="'option ' + optionClass(option)"
+              [disabled]="revealed()"
+              (click)="answer(option)"
+            >
+              @if (optionClass(option) === 'correct') { <span class="mark" aria-hidden="true">✓</span> }
+              @if (optionClass(option) === 'wrong') { <span class="mark" aria-hidden="true">✗</span> }
+              {{ option }}
+            </button>
+          }
+        </div>
+      </div>
+
+      @if (paused()) {
+        <p class="paused-note" role="status">paused</p>
+      }
+    </div>
+
+    <p class="feedback" aria-live="polite">
+      @if (revealed()) {
+        @if (selected() === q.correctAnswer) {
+          correct!
+        } @else if (timedOut()) {
+          time's up! the answer was <strong>{{ q.correctAnswer }}</strong>.
+        } @else {
+          not quite. the answer was <strong>{{ q.correctAnswer }}</strong>.
+        }
+      }
+    </p>
+
+    <app-attribution />
+  </app-card>
+}
