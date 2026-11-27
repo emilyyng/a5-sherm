@@ -8,6 +8,7 @@ import { GameStateService } from '../../core/game-state.service';
 import { CardComponent } from '../../components/card/card.component';
 import { SegmentedComponent, SegmentedOption } from '../../components/segmented/segmented.component';
 import { AttributionComponent } from '../../components/attribution/attribution.component';
+import { ButtonComponent } from '../../components/button/button.component';
 
 // players don't choose this; change the number here to retime the whole game
 const SECONDS_PER_QUESTION = 15;
@@ -15,7 +16,7 @@ const SECONDS_PER_QUESTION = 15;
 @Component({
   selector: 'app-start',
   standalone: true,
-  imports: [ReactiveFormsModule, CardComponent, SegmentedComponent, AttributionComponent],
+  imports: [ReactiveFormsModule, CardComponent, SegmentedComponent, AttributionComponent, ButtonComponent],
   templateUrl: './start.component.html',
   styleUrl: './start.component.css',
 })

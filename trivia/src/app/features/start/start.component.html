@@ -44,9 +44,11 @@
       <p class="error" role="alert">{{ error() }}</p>
     }
 
-    <button type="submit" class="btn-start" [disabled]="form.invalid || loading()">
-      {{ loading() ? 'loading…' : 'start game' }}
-    </button>
+    <div class="actions">
+      <app-button type="submit" [disabled]="form.invalid || loading()">
+        {{ loading() ? 'loading…' : 'start game' }}
+      </app-button>
+    </div>
   </form>
 
   <app-attribution />

@@ -1,2 +1,39 @@
 <!-- features/stats/stats.component.html -->
-<!-- stats screen template: games played, average accuracy, and a list of recent games -->
+<!-- stats screen: games played, average accuracy, recent games, return home -->
+<app-card>
+  <h1 class="title">stats</h1>
+
+  @if (stats.gamesPlayed() === 0) {
+    <p class="empty">no games yet. play a round and your stats will show up here.</p>
+  } @else {
+    <div class="content">
+
+      <div class="tiles">
+        <div class="tile">
+          <strong class="tile-value">{{ stats.gamesPlayed() }}</strong>
+          <span class="tile-label">game(s) played</span>
+        </div>
+        <div class="tile">
+          <strong class="tile-value">{{ stats.lifetimeAccuracy() | percent: '1.0-0' }}</strong>
+          <span class="tile-label">average accuracy</span>
+        </div>
+      </div>
+
+      <h2 class="section-label" id="recent-label">recent games</h2>
+      <ul class="history" aria-labelledby="recent-label" tabindex="0">
+        @for (g of stats.recentGames(); track g.playedAt) {
+          <li class="game">
+            <span class="when">{{ g.playedAt | date: 'MMM d, h:mm a' }}</span>
+            <span class="level">{{ g.settings.difficulty }}</span>
+            <strong class="score">{{ g.score }}/{{ g.total }}</strong>
+          </li>
+        }
+      </ul>
+
+    </div>
+  }
+
+  <div class="actions">
+    <app-button variant="primary" link="/">return home</app-button>
+  </div>
+</app-card>
