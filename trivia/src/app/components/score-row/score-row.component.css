@@ -1,0 +1,44 @@
+:host { display: inline-block; }
+
+.sparks {
+  display: flex;
+  gap: var(--spark-gap, 6px);
+}
+
+.spark {
+  width: var(--spark-size, 40px);
+  height: var(--spark-size, 40px);
+}
+
+.spark path {
+  stroke-width: 1.6;
+  stroke-linejoin: round;
+  transition: fill 0.2s, stroke 0.2s;
+}
+
+/* correct: filled green */
+.correct path { fill: var(--green); stroke: var(--green); }
+
+/* wrong: empty red outline */
+.wrong path { fill: none; stroke: var(--red); stroke-width: 1.8; }
+
+/* color mode: wrong is filled red, like correct is filled green */
+.color-only .wrong path { fill: var(--red); stroke: var(--red); stroke-width: 1.6; }
+
+/* not answered yet: a small dot */
+.pending circle { fill: var(--gray); opacity: 0.45; }
+
+/* optional pop-in, one sparkle after another */
+@keyframes pop {
+  from { transform: scale(0.4) rotate(-20deg); opacity: 0; }
+  to   { transform: none; opacity: 1; }
+}
+.animate {
+  animation: pop 0.45s cubic-bezier(0.3, 1.5, 0.5, 1) both;
+  animation-delay: calc(var(--i, 0) * 120ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spark path { transition: none; }
+  .animate { animation: none; }
+}
