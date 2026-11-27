@@ -12,13 +12,14 @@
   font-size: 1.5rem;
   line-height: 1.2;
   text-decoration: none;
+  text-transform: lowercase;   /* every button label in the app is lowercase */
   cursor: pointer;
   transition: transform 0.1s, box-shadow 0.1s, background 0.15s;
 }
 
 .primary {
   background: var(--blue);
-  color: var(--sky);
+  color: var(--cream);
   box-shadow: 0 3px 0 rgba(0, 0, 0, 0.18);
 }
 .primary:hover:not(:disabled) {

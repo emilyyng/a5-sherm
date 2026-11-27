@@ -1,0 +1,55 @@
+/* features/results/results.component.css */
+/* page-specific styling only; card and buttons style themselves. matches the stats page */
+:host {
+  display: block;
+  width: 100%;
+  max-width: 760px;
+}
+
+.title {
+  margin: 0 0 clamp(16px, 3vh, 28px);
+  font-family: var(--font-display);
+  font-weight: normal;
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  line-height: 1.1;
+  color: var(--blue);
+  text-transform: lowercase;
+}
+
+/* the score sits in a light-blue tile, like the numbers on the stats page */
+.big-score {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  width: fit-content;
+  margin: 0 auto;
+  padding: 14px 40px;
+  border-radius: 24px;
+  background: var(--sky);
+  color: var(--blue);
+  font-family: var(--font-display);
+  font-size: 3rem;
+  line-height: 1.1;
+}
+
+
+.subtitle {
+  margin: 16px 0 0;
+  font-size: 1.05rem;
+  color: var(--gray);
+  text-transform: lowercase;
+}
+
+.error {
+  margin: 16px 0 0;
+  font-weight: 600;
+  color: var(--red);
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: clamp(24px, 5vh, 40px);
+}

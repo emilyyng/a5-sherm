@@ -11,8 +11,8 @@
   --sky: #D3F1FB;
   --cream: #FEFDF9;
   --gray: #454545;
-  --red: #C86868;
-  --green: #62A770;
+  --red: #A94545;
+  --green: #3A7D4A;
 
   --hover: rgba(35, 114, 163, 0.12);   /* unselected pill/chip hover */
   --sky-hover: #BFE6F5;                /* answer option hover */
@@ -29,8 +29,10 @@
 :root[data-theme='dark'] {
   --blue: #D3F1FB;
   --sky: #2372A3;
+  --red: #F0A5A5;   /* lighter red for small text + thin lines on the dark card */
   --cream: #454545;   /* the palette's dark gray becomes the card color */
   --gray: #FEFDF9;    /* the palette's cream becomes the text color */
+  --green: #9AD8A6;
 
   --hover: rgba(211, 241, 251, 0.16);
   --sky-hover: #2C80B3;

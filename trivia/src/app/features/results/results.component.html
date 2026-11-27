@@ -1,2 +1,27 @@
 <!-- features/results/results.component.html -->
 <!-- results screen template: final score, settings summary, and the two action buttons -->
+<app-card>
+  <h1 class="title">{{ message() }}</h1>
+
+  <p class="big-score">
+    {{ game.score() }} <span>/ {{ game.total() }}</span>
+  </p>
+
+  @if (game.settings(); as s) {
+    <p class="subtitle">
+      {{ s.difficulty }} · {{ categoryText() }} ·
+      {{ s.timed ? 'timed' : 'no timer' }}
+    </p>
+  }
+
+  @if (error()) {
+    <p class="error" role="alert">{{ error() }}</p>
+  }
+
+  <div class="actions">
+    <app-button variant="outline" (click)="returnHome()">Return home</app-button>
+    <app-button [disabled]="loading()" (click)="playAgain()">
+      {{ loading() ? 'Loading…' : 'Play again' }}
+    </app-button>
+  </div>
+</app-card>
