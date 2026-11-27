@@ -15,6 +15,8 @@ export class GameStateService {
   readonly questions = signal<TriviaQuestion[]>([]);
   readonly currentIndex = signal(0);
   readonly score = signal(0);
+  /** one entry per answered question, in order: true = right, false = wrong or timed out. */
+  readonly answers = signal<boolean[]>([]);
   readonly finished = signal(false);
 
   readonly currentQuestion = computed(() => this.questions()[this.currentIndex()] ?? null);
@@ -28,6 +30,7 @@ export class GameStateService {
         this.questions.set(questions);
         this.currentIndex.set(0);
         this.score.set(0);
+        this.answers.set([]);
         this.finished.set(false);
       }),
     );
@@ -38,6 +41,7 @@ export class GameStateService {
   }
 
   recordAnswer(correct: boolean) {
+    this.answers.update(a => [...a, correct]);
     if (correct) this.score.update(s => s + 1);
   }
 
